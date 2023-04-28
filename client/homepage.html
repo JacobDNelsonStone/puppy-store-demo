@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homepage</title>
+</head>
+<body>
+  <center>
+    <form>
+      <input type="text" class="breed" name="breed" placeholder="German Shephard"/>
+      <input type="text" class="name" name="name" placeholder="fido"/>
+      <input type="number" class="age" name="age" placeholder="2"/>
+
+      <button>Please adopt my dog</button>
+    </form>
+  </center>
+
+  <script>
+    const form = document.querySelector('form');
+    const breedField = document.querySelector('.breed');
+    const nameField = document.querySelector('.name');
+    const ageField = document.querySelector('.age');
+
+    form.addEventListener('submit', function(event){
+      event.preventDefault();
+      console.log(breedField.value);
+
+      const puppyData = {
+        breed: breedField.value,
+        name: nameField.value,
+        age: ageField.value,
+      }
+
+      const submit = fetch('/api/puppies', {
+        method: "POST",
+        body: JSON.stringify(puppyData),
+        headers: {
+          "Content-Type": "application/json"
+        }
+        
+      }).then( resp => resp.json() ).then( data => console.log(data))
+    })
+
+  </script>
+</body>
+</html>
